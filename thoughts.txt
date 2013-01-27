@@ -1,0 +1,69 @@
+Erste Ideen für Luapardy!
+
+
+Ablauf des Spiels (Regeln):
+ * Es gibt 5 Runden:
+   * Runde 1-3: 
+     * Drei Spieler versuchen Punkte zu sammeln, indem sie aus einer Matrix aus n*m
+     * Antworten die entsprechenden Fragen stellen.
+     * jede Spalte entspricht einer Kategorie, jede Zeile einem bestimmten Punktewert
+     * Das Spiel ist beendet, wenn alle Antworten gezeigt wurden
+   * Runde 4 ("Double Jeopard"?):
+     * Die Gewinner der letzten drei Runden spielen gegeneinander, es gelten die gleichen Regeln wie zuvor, lediglich die zu erwerbenden Punkte wurden verdoppelt.
+   * Runde 5 ("Final Jeopardy"):
+     * Die zwei letzten Mitspieler beantworten ein letzte Frage
+     * Die Frage kommt aus einer zufällig gewählten Kategorie (beliebig abgewägig)
+     * Die Spieler geben an wie viel Punkte sie auf ihre Antwort vergeben möchten
+       * Kann maximal ihr vorhandenes Kontingent sein
+       * Bei einer falschen Antwort verliert der Spieler diese Punkte
+       * Bei ener Richtigen Antwort erhällt der Spieler die Punkte
+
+
+Anzeige:
+
+ * Interaktion mit Luapardy?:
+
+Model/Datenbasis:
+ * Lua-Struktur:
+   * Ein Spiel Luapardy wird als Lua-Tabelle kodiert/gespeichert und beim Start instanziert. Auf dieser Instanz wird ein Spiel Luapardy abgearbeitet.
+
+
+
+Testspiel:
+
+Anime
+ * 100: Er ist eine gelbe Ratte
+   * Wer ist Pikachu
+ * 200: Er hat als erster beim Kacken blonde Haare gekriegt
+   * Wer ist Son Goku
+ * 300: Er liebt seinen Strohut
+   * Wer ist Luffy ?
+ * 400: Garant für gute Filme
+   * Was ist Studio Ghibli ?
+ * 500: Sie strahlt wie die Sonne überm Fujiyama
+   * Wer ist Mila ?
+
+Doctor Who
+ * 100: Exterminate!
+   * Was ruft ein Dalek ?
+ * 200: Its bigger on the inside
+   * Was ist die Tardis ?
+ * 300: Anagramm und eigene Serie
+   * Was ist Torchwood
+ * 400: Er bellt und rostet
+   * Was ist K-9 ?
+ * 500: Sein zerstörter Heimatplanet
+   * Was ist Galiphrey ?
+
+???
+ * 100: Recherchen und Archiv
+   * Was sind die Aufgaben von Bob Andrews?
+ * 200: Für all die ungelösten Rätsel und Geheimnisse
+   * Wofür stehen die drei ??? 
+ * 300: Sehr wohl, die Herren
+   * Was sagt Morton ?
+ * 400: Er ist nicht nur dünn, sondern auch gemein
+   * Wer ist Skinny Norris ?
+ * 500: Er ist Besitzer des Schrottplatzes
+   * Wer ist Titus Jonas ? 
+
