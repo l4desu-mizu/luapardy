@@ -1,21 +1,25 @@
 Button = {}
 Button.__index = Button
 
-function Button:create(x,y,width,height,label )
+function Button:create(id,x,y,width,height,label )
 	local b = {}
 	setmetatable(b,Button)
-	b.br=0
-	b.bg=0
-	b.bb=0
-	b.fr=0
-	b.fg=0
-	b.fb=0
+	b.id=id
+	b.background={0,0,200}
+	b.foreground={200,200,0}
 	b.x = x
 	b.y = y
 	b.width = width
 	b.height = height
 	b.label = label
 	return b
+end
+
+function Button:getID()
+	return b.id
+end
+function Button:setID(id)
+	self.id=id
 end
 
 function Button:setLocation(x,y)
@@ -30,25 +34,21 @@ function Button:setBounds(x,y,width,height)
 	self.height=height
 end
 
-function Button:test(x,y)
+function Button:onOver(x,y)
 	return x>=self.x and x<=self.x+self.width and y>=self.y and y<=self.y+self.height
 end
 
 function Button:setBackground(r,g,b)
-	self.br=r
-	self.bg=g
-	self.bb=b
+	self.background={r,g,b}
 end
 function Button:getBackground()
-	return {self.br,self.bg,self.bb}
+	return self.background
 end
 function Button:setForeground(r,g,b)
-	self.fr=r
-	self.fg=g
-	self.fb=b
+	self.foreground={r,g,b}
 end
 function Button:getForeground()
-	return {self.fr,self.fg,self.fb}
+	return self.foreground
 end
 
 function Button:setLabel(text)
