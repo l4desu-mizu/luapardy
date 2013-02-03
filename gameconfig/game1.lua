@@ -48,7 +48,7 @@ game = {
 			{
 				value=200,
 				typ="text",
-				given="Er hat ls erster beim Kacken blonde Haare bekommen",
+				given="Er hat is erster beim Kacken blonde Haare bekommen",
 				wanted="Wer ist Son Goku?"
 			},
 			{
@@ -114,7 +114,7 @@ game = {
 			{
 				value=200,
 				typ="text",
-				given="Für all die ungelösten Rätsel und Geheimnisse",
+				given="Sie stehen für all die ungelösten Rätsel und Geheimnisse",
 				wanted="Wofür stehen die drei Fragezeichen ?"
 			},
 			{
@@ -132,7 +132,7 @@ game = {
 			{
 				value=500,
 				typ="text",
-				given="Er ist Besitzer des Schreottplatzes",
+				given="Er ist Besitzer des Schrottplatzes",
 				wanted="Wer ist Titus Jonas?"
 			}
 		}

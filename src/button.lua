@@ -16,7 +16,7 @@ function Button:create(id,x,y,width,height,label )
 end
 
 function Button:getID()
-	return b.id
+	return self.id
 end
 function Button:setID(id)
 	self.id=id
