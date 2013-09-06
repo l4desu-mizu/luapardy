@@ -1,4 +1,8 @@
-require("button")
+--[[
+-- Creates the Mainmenu, selecting game, players, quit etc
+--]]
+
+require("gui/button")
 Menu = {}
 Menu.__index = Menu
 
@@ -13,6 +17,7 @@ function Menu:create()
 	return m
 end
 
+--returns the menus buttons, (view purpose)
 function Menu:getButtons()
 	return self.buttons
 end

@@ -1,7 +1,13 @@
-require("button")
-require("menu")
+--[[
+-- Main lua file, entrypoint for love2D
+--]]
+--
+
+require("gui/button")
+require("gamestate/menu")
 require("player")
 
+--loading gameconfig
 dofile("gameconfig/game1.lua")
 
 gamestate = {aktuell=1, menu=1, players=2, categorys=3, given=4}
@@ -22,27 +28,7 @@ players[3]:setColor({0,255,255})
 menu=Menu:create()
 
 
---buttons
-do
-	local y=0
-	local x=0
-	for key,category in pairs(game.quiz) do
-		for ckey,cvalue in ipairs(category) do  --ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt
-							--da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
-							--und sollte von daher immer der erste eintrag in der categorie sein
-			if(type(cvalue) == "string")then
-				table.insert(buttons,Button:create("category",100*x+10*x,100*y,100,80,cvalue))
-			else
-				table.insert(buttons,Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value)))
-				questions[10*y+x]={given=cvalue.given,wanted=cvalue,wanted}
-			end
-			y=y+1
-		end
-		x=x+1
-		y=0
-	end
-end
-
+--helper function for given startparameters
 function isInTable(t,value)
 	for i,v in ipairs(t) do 
 		if (v == value) then
@@ -50,6 +36,7 @@ function isInTable(t,value)
 		end
 	end
 end
+
 function love.load(args)
 	-- run in fullscreen?
 	fullscreen=false
@@ -59,6 +46,7 @@ function love.load(args)
 	love.graphics.setMode(800,600,fullscreen,true,0)
 	font=love.graphics.newFont(35)
 	love.graphics.setFont(font)
+	createButtons()
 end
 
 function love.draw()
@@ -118,6 +106,29 @@ function love.update()
 			end
 		else
 			love.graphics.setBackgroundColor(0,0,0)
+		end
+	end
+end
+
+--buttons
+function createButtons()
+	do
+		local y=0
+		local x=0
+		for key,category in pairs(game.quiz) do
+			for ckey,cvalue in ipairs(category) do  --ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt
+								--da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
+								--und sollte von daher immer der erste eintrag in der categorie sein
+				if(type(cvalue) == "string")then
+					table.insert(buttons,Button:create("category",100*x+10*x,100*y,100,80,cvalue))
+				else
+					table.insert(buttons,Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value)))
+					questions[10*y+x]={given=cvalue.given,wanted=cvalue,wanted}
+				end
+				y=y+1
+			end
+			x=x+1
+			y=0
 		end
 	end
 end
