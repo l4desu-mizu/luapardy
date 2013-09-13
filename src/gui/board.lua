@@ -39,6 +39,6 @@ end
 --draws the "gamegrid" gamestate
 function Board:draw_gamegrid()
 	for i,bu in pairs(buttons) do
-		print(bu.getID())
+		bu:draw()
 	end
 end
