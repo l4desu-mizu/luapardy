@@ -5,7 +5,8 @@
 
 require("gui/button")
 require("gamestate/menu")
-require("player")
+require("stuff/player")
+require("gui/board")
 
 --loading gameconfig
 dofile("gameconfig/game1.lua")
@@ -25,10 +26,12 @@ players[1]:setColor({255,0,0})
 players[2]:setColor({0,255,0})
 players[3]:setColor({0,255,255})
 
+gamegrid = Board:create(game,players)
+
 menu=Menu:create()
 
 
---helper function for given startparameters
+--helper function for startparameters
 function isInTable(t,value)
 	for i,v in ipairs(t) do 
 		if (v == value) then
@@ -174,9 +177,7 @@ function draw_given()
 end
 
 function draw_gamegrid()
-	for i,bu in pairs(buttons) do
-		draw_button(bu)
-	end
+	gamegrid:draw_gamegrid()
 end
 
 function draw_button(bu)

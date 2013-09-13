@@ -1,6 +1,7 @@
 --[[
 -- An >Object< To create a jeopardy board
 --]]
+require("gui/button")
 
 Board = {}
 Board.__index = Board
@@ -35,10 +36,9 @@ function Board:create(quiz,playertab)
 	return b
 end
 
---draws the "given" gamestate
-function Board:draw_given()
-end
-
 --draws the "gamegrid" gamestate
 function Board:draw_gamegrid()
+	for i,bu in pairs(buttons) do
+		print(bu.getID())
+	end
 end

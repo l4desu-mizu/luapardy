@@ -1,5 +1,4 @@
 game = {
-	players=3,
 	quiz = {
 		category1 = {
 			"Elektrotechnik",	--ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt

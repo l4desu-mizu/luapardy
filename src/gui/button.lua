@@ -78,3 +78,15 @@ end
 function Button:getLabel()
 	return self.label
 end
+
+--draws this button
+function Button:draw()
+	--[[love.graphics.setColor(self:getBackground())
+	love.graphics.rectangle("fill",self.x,self.y,self.width,self.height)
+	love.graphics.setColor(self:getForeground())
+	--love.graphics.print(self:getLabel(),self.x+self.width/2,self.y+self.height/2,0,1,1,35,20)
+	love.graphics.printf(self:getLabel(), self.x, self.y+self.height/5, self.width,"center")
+	love.graphics.setColor(255,255,255)
+	--]]
+	print(getId())
+end
