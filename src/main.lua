@@ -23,7 +23,7 @@ players={
 	Player:create("John_Doe3","3",{0,255,255})
 }
 
-gamegrid = Grid:create(game,players) --only files (5 categorys -> 5 files)
+gamegrid = Grid:create(game.quiz) --only files (5 categorys -> 5 files)
 
 
 --helper function for startparameters

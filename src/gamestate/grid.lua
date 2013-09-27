@@ -21,9 +21,10 @@ function Grid:create(quiz)
 		 --da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 		 --und sollte von daher immer der erste eintrag in der categorie sein
 			if(type(cvalue) == "string")then
-				addButton(Button:create("category",100*x+10*x,100*y,100,80,cvalue))
+				print("a")
+				b:addButton(Button:create("category",100*x+10*x,100*y,100,80,cvalue))
 			else
-				addButton(Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value)))
+				b:addButton(Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value)))
 				--questions[10*y+x]={given=cvalue.given,wanted=cvalue,wanted}
 			end
 			y=y+1
