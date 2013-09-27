@@ -5,6 +5,7 @@
 
 require("gui/button")
 require("gamestate/menu")
+require("gamestate/categorys")
 require("stuff/player")
 require("gui/board")
 
@@ -29,6 +30,7 @@ players[3]:setColor({0,255,255})
 gamegrid = Board:create(game,players)
 
 menu=Menu:create()
+categorys=Categorys:create()
 
 
 --helper function for startparameters
@@ -54,7 +56,7 @@ end
 
 function love.draw()
 	if(gamestate.aktuell==gamestate.menu)then
-		draw_menu()
+		menu:draw()
 	elseif(gamestate.aktuell==gamestate.players)then
 		print("y u no players")
 	elseif(gamestate.aktuell==gamestate.given)then
@@ -66,7 +68,7 @@ end
 
 function love.update()
 	if(gamestate.aktuell==gamestate.menu)then
-		for i,bu in pairs(menu:getButtons()) do
+		for i,bu in pairs(menu:getContent()) do
 			if(bu:onOver(love.mouse.getX(), love.mouse.getY())) then
 				bu:setBackground(255,255,255)
 				if(love.mouse.isDown("l"))then
@@ -80,7 +82,6 @@ function love.update()
 				bu:setBackground(0,0,200)
 			end
 		end
-	elseif(gamestate.aktuell==gamestate.players)then
 	elseif(gamestate.aktuell==gamestate.categorys)then
 		for i,bu in pairs(buttons) do
 			if(bu:onOver(love.mouse.getX(), love.mouse.getY())) then
@@ -123,7 +124,8 @@ function createButtons()
 								--da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 								--und sollte von daher immer der erste eintrag in der categorie sein
 				if(type(cvalue) == "string")then
-					table.insert(buttons,Button:create("category",100*x+10*x,100*y,100,80,cvalue))
+					categorys:addButton(Button:create("category",100*x+10*x,100*y,100,80,cvalue))
+					--table.insert(buttons,Button:create("category",100*x+10*x,100*y,100,80,cvalue))
 				else
 					table.insert(buttons,Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value)))
 					questions[10*y+x]={given=cvalue.given,wanted=cvalue,wanted}
@@ -139,12 +141,6 @@ end
 function love.keypressed(key,unicode)
 	buzzer=key
 	return key
-end
-
-function draw_menu()
-	for i,bu in pairs(menu:getButtons()) do
-		draw_button(bu)
-	end
 end
 
 function draw_given()

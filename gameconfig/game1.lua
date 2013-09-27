@@ -47,7 +47,7 @@ game = {
 			{
 				value=200,
 				typ="text",
-				given="Er hat is erster beim Kacken blonde Haare bekommen",
+				given="Er hat als erster beim Kacken blonde Haare bekommen",
 				wanted="Wer ist Son Goku?"
 			},
 			{

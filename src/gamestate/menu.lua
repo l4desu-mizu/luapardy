@@ -1,10 +1,10 @@
 --[[
 -- Creates the Mainmenu, selecting game, players, quit etc
 --]]
-
+require("gamestate/state")
 require("gui/button")
 Menu = {}
-Menu.__index = Menu
+Menu.__index = State
 
 function Menu:create()
 	local m = {}
@@ -18,6 +18,13 @@ function Menu:create()
 end
 
 --returns the menus buttons, (view purpose)
-function Menu:getButtons()
+function State:getContent()
 	return self.buttons
+end
+
+--draw the menu
+function State:draw()
+	for i,b in pairs(self.buttons) do
+		b:draw()
+	end
 end
