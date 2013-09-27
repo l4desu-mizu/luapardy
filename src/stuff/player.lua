@@ -5,12 +5,12 @@
 Player = {}
 Player.__index = Player
 
-function Player:create(name,buzzer)
+function Player:create(name,buzzer,color)
 	local p = {}
 	setmetatable(p,Player)
 	p.buzzer=buzzer
 	p.id=0
-	p.color={255,255,255}
+	p.color=color
 	p.points=0
 	p.name=name
 	return p
