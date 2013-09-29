@@ -14,6 +14,7 @@ function Grid:create(quiz)
 
 	b.buttons={}
 	b.puzzles={}
+	b.puzzle={}
 
 	local y=0
 	local x=0
@@ -27,7 +28,7 @@ function Grid:create(quiz)
 			else
 				tempbutton=Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value))
 				b:addButton(tempbutton)
-				b:addPuzzle(Puzzle:create(cvalue.puzzle,cvalue.answer),tempbutton:getID())
+				b:addPuzzle(Puzzle:create(tempbutton:getID(),cvalue.puzzle,cvalue.answer,cvalue.value))
 			end
 			y=y+1
 		end
@@ -37,15 +38,58 @@ function Grid:create(quiz)
 	return b
 end
 
-function Grid:getPuzzle(bu)
-	return self.puzzles[bu:getID()]
+--returns true if a button is hit
+function Grid:mouse(x,y,down)
+	for i,bu in pairs(self.buttons) do
+		if(bu:onOver(x, y)) then
+			if(type(bu:getID())~="string")then 
+				bu:setBackground(255,255,255)
+				if(down)then
+					if(bu:getID()>0) then
+						self.puzzle=self:findPuzzle(bu:getID())
+						return true
+					end
+				end
+			end
+		else
+			bu:setBackground(0,0,200)
+		end
+	end
+	return false
 end
 
-function Grid:addPuzzle(p,index)
-	table.insert(self.puzzles,index,p)
+function Grid:findPuzzle(id)
+	for i,b in ipairs(self.puzzles) do
+		if(b:getID()==id) then
+			return b
+		end
+	end
 end
+
+function Grid:getPuzzle()
+	return self.puzzle
+end
+
+function Grid:addPuzzle(p)
+	table.insert(self.puzzles,p)
+end
+
+function Grid:removePuzzle(puz)
+	for i,b in ipairs(self.puzzles) do
+		if(b:getID()==puz:getID()) then
+			table.remove(self.puzzles,i)
+		end
+	end
+	for i,b in ipairs(self.buttons) do
+		if(b:getID()==puz:getID()) then
+			table.remove(self.buttons,i)
+		end
+	end
+end
+
 --draws the "gamegrid" gamestate
 function Grid:draw()
+	love.graphics.setBackgroundColor({0,0,0})
 	for i,bu in pairs(self.buttons) do
 		bu:draw()
 	end
