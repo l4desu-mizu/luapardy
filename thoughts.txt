@@ -22,10 +22,12 @@ Ablauf des Spiels (Regeln):
 Anzeige:
 
  * Interaktion mit Luapardy?:
+   * Tastaur (1=Spieler1,2=Spieler2,3=Spieler3)
+   * Umbau von Buzzern und Koppelung an Microcontroller um Tastatursignale zu emulieren
 
 Model/Datenbasis:
  * Lua-Struktur:
-   * Ein Spiel Luapardy wird als Lua-Tabelle kodiert/gespeichert und beim Start instanziert. Auf dieser Instanz wird ein Spiel Luapardy abgearbeitet.
+   * Ein Spiel Luapardy setzt sich aus mehreren Kategorien zusammen, die alle als Lua-Tabelle kodiert/gespeichert und beim Start instanziert. Auf dieser Instanz wird ein Spiel Luapardy abgearbeitet.
 
 
 
