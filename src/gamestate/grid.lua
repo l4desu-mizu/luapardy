@@ -6,15 +6,17 @@ require("gamestate/puzzle")
 
 Grid = {}
 Grid.__index = Grid
+Grid.type = "Grid"
 
 -- Creates a new Jeopardy board with the given quiz file and a given players table
-function Grid:create(quiz)
+function Grid:create(quiz,players)
 	local b = {}
 	setmetatable(b,Grid)
 
 	b.buttons={}
 	b.puzzles={}
 	b.puzzle={}
+	b.players=players
 
 	local y=0
 	local x=0
@@ -38,8 +40,11 @@ function Grid:create(quiz)
 	return b
 end
 
+function Grid:keypress(key)
+end
+
 --returns true if a button is hit
-function Grid:mouse(x,y,down)
+function Grid:mouseHit(x,y,down)
 	for i,bu in pairs(self.buttons) do
 		if(bu:onOver(x, y)) then
 			if(type(bu:getID())~="string")then 
@@ -93,6 +98,11 @@ function Grid:draw()
 	for i,bu in pairs(self.buttons) do
 		bu:draw()
 	end
+	for i,p in pairs(self.players) do
+		love.graphics.setColor(p:getColor())
+		love.graphics.printf(p:getName()..":"..p:getPoints(),love.graphics.getWidth()-300,love.graphics.getHeight()/2-2*font:getHeight()+i*font:getHeight(),200,"left")
+	end
+	love.graphics.setColor({255,255,255})
 end
 
 function Grid:addButton(b)

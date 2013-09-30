@@ -4,6 +4,7 @@
 
 Puzzle = {}
 Puzzle.__index = Puzzle
+Puzzle.type = "Puzzle"
 
 function Puzzle:create(id,puzzle,answer,value)
 	local p = {}
@@ -15,6 +16,13 @@ function Puzzle:create(id,puzzle,answer,value)
 	p.value=value
 	p.answered=false
 	return p
+end
+
+function Puzzle:keypress(key)
+	return key
+end
+
+function Puzzle:mouseHit(x,y,down)
 end
 
 function Puzzle:setTimeout(timeout)

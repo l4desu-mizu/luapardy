@@ -5,6 +5,7 @@ require("gui/button")
 
 Question = {}
 Question.__index = Question
+Question.type = "Question"
 
 function Question:create(puzzle,value)
 	local q = {}
@@ -16,12 +17,15 @@ function Question:create(puzzle,value)
 	return q
 end
 
+function Question:keypress(key)
+end
+
 --returns true if a button is hit
-function Question:mouse(x,y,down)
+function Question:mouseHit(x,y,down)
 	for i,bu in pairs(self.buttons) do
 		if(bu:onOver(x,y)) then
 			bu:setBackground(255,255,255)
-			if(down) then
+			if (down and not self.puzzle.answered) then
 				if(bu:getID()==0) then
 					print("Richtig")
 					self.correct=true
@@ -57,6 +61,6 @@ function Question:draw()
 	end
 	if(self.correct) then
 		font=love.graphics.getFont()
-		love.graphics.printf(self.puzzle,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
+		love.graphics.printf(self.puzzle.puzzle,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
 	end
 end

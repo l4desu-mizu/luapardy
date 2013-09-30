@@ -65,5 +65,5 @@ function Player:incPoints(x)
 end
 --decreases the points of the player by x
 function Player:decPoints(x)
-	self.points=self.pointsyx
+	self.points=self.points-x
 end
