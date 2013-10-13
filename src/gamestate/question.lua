@@ -11,6 +11,7 @@ function Question:create(puzzle,value)
 	local q = {}
 	setmetatable(q,Question)
 	q.puzzle=puzzle
+	print("Gesucht: "..puzzle.answer)
 	q.value=value
 	q.buttons = {Button:create(0,20,20,120,70,"Richtig"),Button:create(1,20,130,120,70,"Falsch")}
 	q.correct=false
@@ -18,6 +19,13 @@ function Question:create(puzzle,value)
 end
 
 function Question:keypress(key)
+	if(key=="y") then
+		self.correct=true
+		return true
+	end
+	if(key=="n") then
+		return true
+	end
 end
 
 --returns true if a button is hit
@@ -60,6 +68,9 @@ function Question:draw()
 		bu:draw()
 	end
 	if(self.correct) then
+		font=love.graphics.getFont()
+		love.graphics.printf(self.puzzle.answer,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
+	else
 		font=love.graphics.getFont()
 		love.graphics.printf(self.puzzle.puzzle,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
 	end
