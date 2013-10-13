@@ -121,7 +121,7 @@ function love.load(args)
 	-- run in fullscreen?
 	-- args order: fullscreen, playercount, playername ... , category1 ... category5
 
-	local fullscreen
+	local fullscreen=false
 
 	local playercount
 	local colors={{255,0,0},{0,155,0},{125,0,255}}
@@ -132,7 +132,7 @@ function love.load(args)
 			print(v)
 		elseif (i==2) then
 			--fullscreen
-			fullscreen=v
+			fullscreen=(v=="true")
 		elseif(i==3) then
 			playercount=v
 		elseif(i>3 and i<=3+playercount) then
@@ -147,7 +147,7 @@ function love.load(args)
 		end
 		i=i+1
 	end
-	love.graphics.setMode(800,600,fullscreen,true,0)
+	love.graphics.setMode(1024,786,fullscreen,true,0)
 	font=love.graphics.newFont(35)
 	love.graphics.setFont(font)
 

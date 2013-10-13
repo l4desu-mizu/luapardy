@@ -22,8 +22,11 @@ function Grid:create(quiz,players)
 	local y=0
 	local x=0
 	local xspacing=10
+	local yspacing=15
 	local categorys=table.getn(quiz)
+	local puzzlecount=6
 	local buttonwidth=(love.graphics.getWidth()-(xspacing*categorys))/categorys
+	local buttonheight=(love.graphics.getHeight()-(yspacing*puzzlecount)-love.graphics.getFont():getHeight())/puzzlecount
 	print(buttonwidth)
 	for key,category in pairs(quiz) do
 		for ckey,cvalue in ipairs(category) do  
@@ -31,9 +34,9 @@ function Grid:create(quiz,players)
 		 --da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 		 --und sollte von daher immer der erste eintrag in der categorie sein
 			if(type(cvalue) == "string")then
-				b:addButton(Button:create("category",buttonwidth*x+xspacing*(x+0.5),100*y,buttonwidth,90,cvalue))
+				b:addButton(Button:create("category",buttonwidth*x+xspacing*(x+0.5),buttonheight*y,buttonwidth,buttonheight,cvalue))
 			else
-				tempbutton=Button:create(10*y+x,buttonwidth*x+xspacing*(x+0.5),90*y+20,buttonwidth,80,tostring(cvalue.value))
+				tempbutton=Button:create(10*y+x,buttonwidth*x+xspacing*(x+0.5),y*(buttonheight+yspacing),buttonwidth,buttonheight,tostring(cvalue.value))
 				b:addButton(tempbutton)
 				b:addPuzzle(Puzzle:create(tempbutton:getID(),cvalue.puzzle,cvalue.answer,cvalue.value))
 			end
