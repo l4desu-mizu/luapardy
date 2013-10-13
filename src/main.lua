@@ -9,22 +9,14 @@ require("gamestate/question")
 require("stuff/player")
 
 --loading gameconfig
-dofile("gameconfig/game1.lua")
 
 question = {}
 puzzle = {}
 gamegrid = {}
-buzzer="none"
+game={quiz={}}
+players={}
 
-players={
-	Player:create("John_Doe1","1",{255,0,0}),
-	Player:create("John_Doe2","2",{0,255,0}),
-	Player:create("John_Doe3","3",{125,0,255})
-}
 candidate={}
-
-gamegrid = Grid:create(game.quiz,players) --only files (5 categorys -> 5 files)
-gamestate = gamegrid
 
 
 --update graphics
@@ -40,23 +32,13 @@ function love.update()
 			gamestate=puzzle
 		end
 	elseif(gamestate.type=="Puzzle")then
-		if(puzzle:isTimeout()) then
-			gamegrid:removePuzzle(puzzle)
-			gamestate=grid
-		end
-
+		--if(puzzle:isTimeout()) then
+		--	gamegrid:removePuzzle(puzzle)
+		--	gamestate=grid
+		--end
 	elseif(gamestate.type=="Question") then
 		if(question:mouseHit(love.mouse.getX(),love.mouse.getY(),love.mouse.isDown("l"))) then
-			if(question:Correct()) then
-				print(candidate:getName() .." ".. question:getValue())
-				candidate:incPoints(question:getValue())
-				gamegrid:removePuzzle(question:getPuzzle())
-				gamestate=gamegrid
-			else
-				print(candidate:getName() .." ".. -question:getValue())
-				candidate:decPoints(question:getValue())
-				gamestate=puzzle
-			end
+			evalQuestion()
 		end
 	end
 end
@@ -72,6 +54,13 @@ function love.keypressed(key,unicode)
 				break
 			end
 		end
+		return key
+	end
+	if(gamestate.type=="Question") then
+		if(question:keypress(key)) then
+			evalQuestion()
+		end
+		return key
 	end
 	return key
 end
@@ -88,6 +77,21 @@ function draw_gamegrid()
 	gamegrid:draw()
 end
 
+-- hmhmhmmmm
+function evalQuestion()
+	if(question:Correct()) then
+		print(candidate:getName() .." ".. question:getValue())
+		candidate:incPoints(question:getValue())
+		gamegrid:removePuzzle(question:getPuzzle())
+		gamestate=gamegrid
+	else
+		print(candidate:getName() .." ".. -question:getValue())
+		candidate:decPoints(question:getValue())
+		gamestate=puzzle
+	end
+end
+
+
 --helper function for startparameters
 --{{{
 function isInTable(t,value)
@@ -103,13 +107,44 @@ end
 --{{{
 function love.load(args)
 	-- run in fullscreen?
-	fullscreen=false
-	if(isInTable(args,"fullscreen"))then
-		fullscreen=true
+	-- args order: fullscreen, playercount, playername ... , category1 ... category5
+
+	local fullscreen
+
+	local playercount
+	local colors={{255,0,0},{0,155,0},{125,0,255}}
+
+	local i=1
+	for k,v in ipairs(args) do
+		if(i==1) then
+			print(v)
+		elseif (i==2) then
+			--fullscreen
+			fullscreen=v
+		elseif(i==3) then
+			playercount=v
+		elseif(i>3 and i<=3+playercount) then
+			--players
+			table.insert(players,Player:create(v,tostring(i-3),colors[i-3]))
+		else
+			--categorys
+			local f=loadfile("gameconfig/"..v)
+			print(assert(f()))
+			category=f()
+			table.insert(game.quiz,category)
+		end
+		i=i+1
 	end
 	love.graphics.setMode(800,600,fullscreen,true,0)
 	font=love.graphics.newFont(35)
 	love.graphics.setFont(font)
+
+	for k,v in ipairs(players) do
+		print(v:getName())
+	end
+
+	gamegrid = Grid:create(game.quiz,players) --only files (5 categorys -> 5 files)
+	gamestate = gamegrid
+
 end
 --}}}
-
