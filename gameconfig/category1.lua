@@ -1,5 +1,5 @@
 return {
-	"Elektrotechnik",	--ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt
+	"E-Technik",	--ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt
 				--da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 				--und sollte von daher immer der erste eintrag in der categorie sein
 	{

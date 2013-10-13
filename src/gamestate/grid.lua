@@ -3,6 +3,7 @@
 --]]
 require("gui/button")
 require("gamestate/puzzle")
+require("gamestate/result")
 
 Grid = {}
 Grid.__index = Grid
@@ -20,15 +21,19 @@ function Grid:create(quiz,players)
 
 	local y=0
 	local x=0
+	local xspacing=10
+	local categorys=table.getn(quiz)
+	local buttonwidth=(love.graphics.getWidth()-(xspacing*categorys))/categorys
+	print(buttonwidth)
 	for key,category in pairs(quiz) do
 		for ckey,cvalue in ipairs(category) do  
 		 --ipairs geht in definierter reihenfolge vor wärend pairs eine beliebige reihenfolge nimmt
 		 --da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 		 --und sollte von daher immer der erste eintrag in der categorie sein
 			if(type(cvalue) == "string")then
-				b:addButton(Button:create("category",100*x+10*x,100*y,100,80,cvalue))
+				b:addButton(Button:create("category",buttonwidth*x+xspacing*(x+0.5),100*y,buttonwidth,90,cvalue))
 			else
-				tempbutton=Button:create(10*y+x,100*x+10*x,100*y,100,80,tostring(cvalue.value))
+				tempbutton=Button:create(10*y+x,buttonwidth*x+xspacing*(x+0.5),90*y+20,buttonwidth,80,tostring(cvalue.value))
 				b:addButton(tempbutton)
 				b:addPuzzle(Puzzle:create(tempbutton:getID(),cvalue.puzzle,cvalue.answer,cvalue.value))
 			end
@@ -79,6 +84,14 @@ function Grid:addPuzzle(p)
 	table.insert(self.puzzles,p)
 end
 
+function Grid:remainingPuzzles()
+	return table.getn(self.puzzles)
+end
+
+function Grid:isEmpty()
+	return (self:remainingPuzzles()<=0)
+end
+
 function Grid:removePuzzle(puz)
 	for i,b in ipairs(self.puzzles) do
 		if(b:getID()==puz:getID()) then
@@ -94,21 +107,26 @@ end
 
 --draws the "gamegrid" gamestate
 function Grid:draw()
+	font=love.graphics.getFont()
+	newfont=love.graphics.newFont(18)
 	love.graphics.setBackgroundColor({0,0,0})
+	--
+	--buttons
 	for i,bu in pairs(self.buttons) do
 		bu:draw()
 	end
+
+	love.graphics.setFont(newfont)
 	for i,p in pairs(self.players) do
 		love.graphics.setColor(p:getColor())
-		love.graphics.printf(p:getName()..":"..p:getPoints(),love.graphics.getWidth()-300,love.graphics.getHeight()/2-2*font:getHeight()+i*font:getHeight(),200,"left")
+		text=p:getName()..":"..p:getPoints()
+		love.graphics.printf(text,10+2*(i-1)*newfont:getWidth(text),love.graphics.getHeight()-2*newfont:getHeight(),200,"left")
 	end
+	love.graphics.setFont(font)
+
 	love.graphics.setColor({255,255,255})
 end
 
 function Grid:addButton(b)
 	table.insert(self.buttons,b)
-end
-
-function Grid:getContent()
-	return self.buttons
 end

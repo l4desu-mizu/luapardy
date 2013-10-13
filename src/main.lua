@@ -13,10 +13,10 @@ require("stuff/player")
 question = {}
 puzzle = {}
 gamegrid = {}
-game={quiz={}}
-players={}
+game = {quiz={}}
+players = {}
 
-candidate={}
+candidate = {}
 
 
 --update graphics
@@ -26,16 +26,16 @@ end
 
 --update logic
 function love.update()
-	if(gamestate.type=="Grid")then
+	if(gamestate.type=="Result") then
+		--print(gamestate.winner:getName())
+	elseif(gamegrid:isEmpty()) then
+		gamestate=Result:create(players)
+	elseif(gamestate.type=="Grid")then
 		if(gamegrid:mouseHit(love.mouse.getX(),love.mouse.getY(),love.mouse.isDown("l"))) then
 			puzzle=gamegrid:getPuzzle()
 			gamestate=puzzle
 		end
 	elseif(gamestate.type=="Puzzle")then
-		--if(puzzle:isTimeout()) then
-		--	gamegrid:removePuzzle(puzzle)
-		--	gamestate=grid
-		--end
 	elseif(gamestate.type=="Question") then
 		if(question:mouseHit(love.mouse.getX(),love.mouse.getY(),love.mouse.isDown("l"))) then
 			evalQuestion()
@@ -45,15 +45,7 @@ end
 
 function love.keypressed(key,unicode)
 	if(gamestate.type=="Puzzle") then
-		for i,v in pairs(players) do
-			if(key==v:getBuzzer()) then
-				candidate=v
-				love.graphics.setBackgroundColor(v:getColor())
-				question=Question:create(puzzle,puzzle.value)
-				gamestate=question
-				break
-			end
-		end
+		evalPuzzle(key)
 		return key
 	end
 	if(gamestate.type=="Question") then
@@ -79,18 +71,38 @@ end
 
 -- hmhmhmmmm
 function evalQuestion()
+	print(not question:Answered())
 	if(question:Correct()) then
+		question.puzzle.answered=true
 		print(candidate:getName() .." ".. question:getValue())
 		candidate:incPoints(question:getValue())
 		gamegrid:removePuzzle(question:getPuzzle())
 		gamestate=gamegrid
-	else
+	elseif(not question:Answered()) then
+		question.puzzle.answered=true
 		print(candidate:getName() .." ".. -question:getValue())
 		candidate:decPoints(question:getValue())
 		gamestate=puzzle
+	else
+		print(candidate:getName() .." ".. -question:getValue())
+		candidate:decPoints(question:getValue())
+		gamegrid:removePuzzle(question:getPuzzle())
+		gamestate=gamegrid
 	end
 end
 
+function evalPuzzle(key)
+	for i,v in pairs(players) do
+		if(key==v:getBuzzer() and not puzzle:hasAnswered(v)) then
+			candidate=v
+			puzzle:AnsweredBy(candidate)
+			love.graphics.setBackgroundColor(v:getColor())
+			question=Question:create(puzzle,puzzle.value)
+			gamestate=question
+			break
+		end
+	end
+end
 
 --helper function for startparameters
 --{{{
