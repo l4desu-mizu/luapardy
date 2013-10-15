@@ -147,7 +147,7 @@ function love.load(args)
 		end
 		i=i+1
 	end
-	love.graphics.setMode(1024,786,fullscreen,true,0)
+	love.graphics.setMode(1024,768,fullscreen,true,0)
 	font=love.graphics.newFont(35)
 	love.graphics.setFont(font)
 

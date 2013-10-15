@@ -1,23 +1,24 @@
 Erste Ideen für Luapardy!
 
 
-Ablauf des Spiels (Regeln):
+Ablauf des Spiels (Regeln): (Original)
  * Es gibt 5 Runden:
    * Runde 1-3: 
      * Drei Spieler versuchen Punkte zu sammeln, indem sie aus einer Matrix aus n*m
-     * Antworten die entsprechenden Fragen stellen.
+       Antworten die entsprechenden Fragen stellen.
      * jede Spalte entspricht einer Kategorie, jede Zeile einem bestimmten Punktewert
      * Das Spiel ist beendet, wenn alle Antworten gezeigt wurden
    * Runde 4 ("Double Jeopard"?):
      * Die Gewinner der letzten drei Runden spielen gegeneinander, es gelten die gleichen Regeln wie zuvor, lediglich die zu erwerbenden Punkte wurden verdoppelt.
    * Runde 5 ("Final Jeopardy"):
-     * Die zwei letzten Mitspieler beantworten ein letzte Frage
-     * Die Frage kommt aus einer zufällig gewählten Kategorie (beliebig abgewägig)
+     * Die zwei letzten Mitspieler beantworten eine letzte Frage
+     * Die Frage kommt aus einer zufällig gewählten Kategorie (beliebig abwägig)
      * Die Spieler geben an wie viel Punkte sie auf ihre Antwort vergeben möchten
        * Kann maximal ihr vorhandenes Kontingent sein
        * Bei einer falschen Antwort verliert der Spieler diese Punkte
-       * Bei ener Richtigen Antwort erhällt der Spieler die Punkte
+       * Bei ener Richtigen Antwort erhält der Spieler die Punkte
 
+!>> * Was wenn kein Spieler die Frage weiss
 
 Anzeige:
 

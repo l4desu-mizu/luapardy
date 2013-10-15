@@ -21,6 +21,8 @@ function Grid:create(quiz,players)
 
 	local y=0
 	local x=0
+	local yoffset=5
+	local xoffset=0.5
 	local xspacing=10
 	local yspacing=15
 	local categorys=table.getn(quiz)
@@ -34,9 +36,9 @@ function Grid:create(quiz,players)
 		 --da ipairs jedoch nur auf integern iteriert kann in der kategorie nicht name als key stehen 
 		 --und sollte von daher immer der erste eintrag in der categorie sein
 			if(type(cvalue) == "string")then
-				b:addButton(Button:create("category",buttonwidth*x+xspacing*(x+0.5),buttonheight*y,buttonwidth,buttonheight,cvalue))
+				b:addButton(Button:create("category",buttonwidth*x+xspacing*(x+xoffset),buttonheight*y+yoffset,buttonwidth,buttonheight,cvalue))
 			else
-				tempbutton=Button:create(10*y+x,buttonwidth*x+xspacing*(x+0.5),y*(buttonheight+yspacing),buttonwidth,buttonheight,tostring(cvalue.value))
+				tempbutton=Button:create(10*y+x,buttonwidth*x+xspacing*(x+xoffset),yoffset+y*(buttonheight+yspacing),buttonwidth,buttonheight,tostring(cvalue.value))
 				b:addButton(tempbutton)
 				b:addPuzzle(Puzzle:create(tempbutton:getID(),cvalue.puzzle,cvalue.answer,cvalue.value))
 			end
