@@ -125,7 +125,7 @@ function Grid:draw()
 	for i,p in pairs(self.players) do
 		love.graphics.setColor(p:getColor())
 		text=p:getName()..":"..p:getPoints()
-		love.graphics.printf(text,10+2*(i-1)*newfont:getWidth(text),love.graphics.getHeight()-2*newfont:getHeight(),200,"left")
+		love.graphics.printf(text,10+200*(i-1),love.graphics.getHeight()-2*newfont:getHeight(),200,"left")
 	end
 	love.graphics.setFont(font)
 

@@ -9,7 +9,9 @@ require("gamestate/question")
 require("stuff/player")
 
 --loading gameconfig
-
+serial_port = 0
+serial_port_error = 0
+serial_port_name = "/dev/arduino" --default
 question = {}
 puzzle = {}
 gamegrid = {}
@@ -17,6 +19,7 @@ game = {quiz={}}
 players = {}
 
 candidate = {}
+
 
 
 --update graphics
@@ -93,6 +96,10 @@ end
 
 function evalPuzzle(key)
 	for i,v in pairs(players) do
+		if(key=="q") then
+			gamegrid:removePuzzle(puzzle)
+			gamestate=gamegrid
+		end
 		if(key==v:getBuzzer() and not puzzle:hasAnswered(v)) then
 			candidate=v
 			puzzle:AnsweredBy(candidate)
@@ -103,6 +110,7 @@ function evalPuzzle(key)
 		end
 	end
 end
+
 
 --helper function for startparameters
 --{{{
@@ -124,7 +132,7 @@ function love.load(args)
 	local fullscreen=false
 
 	local playercount
-	local colors={{255,0,0},{0,155,0},{125,0,255}}
+	local colors={{255,0,0},{0,155,0},{125,0,255},{0,125,125}}
 
 	local i=1
 	for k,v in ipairs(args) do
@@ -137,7 +145,7 @@ function love.load(args)
 			playercount=v
 		elseif(i>3 and i<=3+playercount) then
 			--players
-			table.insert(players,Player:create(v,tostring(i-3),colors[i-3]))
+			table.insert(players,Player:create(v,tostring(i-3),colors[i%table.getn(colors)+1]))
 		else
 			--categorys
 			local f=loadfile("gameconfig/"..v)
@@ -155,8 +163,13 @@ function love.load(args)
 		print(v:getName())
 	end
 
+	--start game
 	gamegrid = Grid:create(game.quiz,players) --only files (5 categorys -> 5 files)
 	gamestate = gamegrid
 
 end
 --}}}
+
+function love.quit()
+	-- close
+end
