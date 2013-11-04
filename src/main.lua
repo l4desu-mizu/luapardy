@@ -33,6 +33,7 @@ function love.update()
 	elseif(gamestate.type=="Grid")then
 		if(gamegrid:mouseHit(love.mouse.getX(),love.mouse.getY(),love.mouse.isDown("l"))) then
 			puzzle=gamegrid:getPuzzle()
+			print("Gesucht: "..puzzle.answer)
 			gamestate=puzzle
 		end
 	elseif(gamestate.type=="Puzzle")then

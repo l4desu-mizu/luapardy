@@ -15,7 +15,6 @@ function Puzzle:create(id,puzzle,answer,value)
 	p.value=value
 	p.answered=false
 	p.answeredby={}
-	print("Gesucht: "..puzzle.answer)
 	return p
 end
 
