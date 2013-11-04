@@ -57,6 +57,6 @@ end
 function Puzzle:draw()
 	love.graphics.setBackgroundColor({0,0,0})
 	font=love.graphics.getFont()
-	love.graphics.printf(self:getQuestion(),0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
+	love.graphics.printf(self:getQuestion(),0.05*love.graphics.getWidth(),love.graphics.getHeight()/2-font:getHeight(),0.9*love.graphics.getWidth(),"center")
 	love.graphics.setFont(font)
 end

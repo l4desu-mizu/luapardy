@@ -48,11 +48,7 @@ function Question:Correct()
 end
 
 function Question:draw()
-	if(self.correct) then
-		font=love.graphics.getFont()
-		love.graphics.printf(self.puzzle.answer,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
-	else
-		font=love.graphics.getFont()
-		love.graphics.printf(self.puzzle.puzzle,0,love.graphics.getHeight()/2-font:getHeight(),love.graphics.getWidth(),"center")
-	end
+	text=self.correct and self.puzzle.answer or self.puzzle.puzzle
+	font=love.graphics.getFont()
+	love.graphics.printf(text,0.05*love.graphics.getWidth(),love.graphics.getHeight()/2-font:getHeight(),0.9*love.graphics.getWidth(),"center")
 end
