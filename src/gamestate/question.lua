@@ -11,7 +11,6 @@ function Question:create(puzzle,value)
 	local q = {}
 	setmetatable(q,Question)
 	q.puzzle=puzzle
-	print("Gesucht: "..puzzle.answer)
 	q.value=value
 	q.correct=false
 	return q

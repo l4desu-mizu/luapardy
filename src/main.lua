@@ -9,9 +9,6 @@ require("gamestate/question")
 require("stuff/player")
 
 --loading gameconfig
-serial_port = 0
-serial_port_error = 0
-serial_port_name = "/dev/arduino" --default
 question = {}
 puzzle = {}
 gamegrid = {}
@@ -148,7 +145,7 @@ function love.load(args)
 			table.insert(players,Player:create(v,tostring(i-3),colors[i%table.getn(colors)+1]))
 		else
 			--categorys
-			local f=loadfile("gameconfig/"..v)
+			local f=loadfile(v)
 			print(assert(f()))
 			category=f()
 			table.insert(game.quiz,category)
@@ -172,4 +169,5 @@ end
 
 function love.quit()
 	-- close
+	print("Bye")
 end
