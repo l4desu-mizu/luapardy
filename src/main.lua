@@ -146,6 +146,7 @@ function love.load(args)
 			table.insert(players,Player:create(v,tostring(i-3),colors[i%table.getn(colors)+1]))
 		else
 			--categorys
+			print("Loading: "..v)
 			local f=loadfile(v)
 			print(assert(f()))
 			category=f()
