@@ -13,3 +13,7 @@ Infos for making and starting the Project:
    + playercount: 1 to 4 (recommended)
    + players: any playernames seperated by spaces (up to playercount) (watch spaces)
    + categorys: any category.lua file in gameconfig. up to n possibilitys (only tested with six, recommended four to six)
+
+Buttons:
+ - 1,2,3... for the players
+ - y/n for the game master to accept or deny an answer
